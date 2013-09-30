@@ -1,32 +1,24 @@
-require 'typhoeus'
+module CodeRunner
+  extend self
 
-class CodeRunner
+  attr_writer :executer
 
-  def initialize args
-    @type = args[:type].to_sym
-    @code = args[:code].to_sym
+  def self.execute args
+    type = args[:type].to_sym
+    code = args[:code]
 
-    raise 'Unsupported language' unless apis.has_key?(@type)
-  end
+    raise 'Unsupported language' unless executer.supports?(type)
 
-  def execute
-    request = Typhoeus::Request.new(
-      apis[@type],
-      method: :post,
-      params: { code: @code }
-    )
-    request.run
-    response = request.response
-    response.body
+    executer.execute type, code
   end
 
   private
-  def apis
-    @apis ||= {
-      ruby: 'http://localhost:1111',
-      python: 'http://localhost:2222',
-      js: 'http://localhost:3333',
-      java: 'http://localhost:4444'
-    }
+
+  def self.executer
+    @executer ||= CodeRunner::NetworkExecuter.new
   end
 end
+
+require 'code_runner/executers/network'
+require 'code_runner/executers/local'
+require 'code_runner/executers/ruby'

@@ -1,9 +1,6 @@
 -
   code: helloworld.rb
-  type: ruby
   results:
     success: true
-    error: null
-    success_id: 'dfa_sdfd'
-    data: {}
-    console: {}
+    errors: []
+    output: "Hello World\n"
