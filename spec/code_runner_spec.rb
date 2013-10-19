@@ -5,8 +5,9 @@ describe CodeRunner do
 
   before { CodeRunner.executer = CodeRunner::Executers::Local.new }
 
-  it 'should execute code from the fixtures' do
-    Dir['spec/fixtures/*.yml'].each do |yaml_file|
+
+  Dir['spec/fixtures/*.yml'].each do |yaml_file|
+    it "should execute code from the #{yaml_file} fixtures" do
       parsed_yaml = YAML::load_file yaml_file
 
       test_type = yaml_file.match(/(\w+)\.yml$/)[1]

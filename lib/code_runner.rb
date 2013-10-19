@@ -22,3 +22,4 @@ end
 require 'code_runner/executers/network'
 require 'code_runner/executers/local'
 require 'code_runner/executers/ruby'
+require 'code_runner/executers/python'

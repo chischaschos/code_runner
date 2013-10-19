@@ -10,7 +10,7 @@ module CodeRunner
       end
 
       def supports? type
-        [ :ruby ].include? type
+        CodeRunner::Executers.const_defined? type.capitalize
       end
 
       def executer_class type
